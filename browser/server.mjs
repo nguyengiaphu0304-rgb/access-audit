@@ -6,6 +6,9 @@ const ROOT = new URL("./", import.meta.url);
 const FILES = new Map([
   ["/", ["fixture.html", "text/html; charset=utf-8"]],
   ["/fixture.css", ["fixture.css", "text/css; charset=utf-8"]],
+  ["/explorer", ["../evidence/explorer.html", "text/html; charset=utf-8"]],
+  ["/explorer.css", ["explorer.css", "text/css; charset=utf-8"]],
+  ["/explorer.js", ["explorer.js", "text/javascript; charset=utf-8"]],
 ]);
 export const SECURITY_HEADERS = Object.freeze({
   "content-security-policy":
@@ -13,6 +16,12 @@ export const SECURITY_HEADERS = Object.freeze({
     "connect-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
   "referrer-policy": "no-referrer",
   "x-content-type-options": "nosniff",
+});
+export const EXPLORER_SECURITY_HEADERS = Object.freeze({
+  ...SECURITY_HEADERS,
+  "content-security-policy":
+    "default-src 'none'; style-src 'self'; script-src 'self'; img-src 'self'; " +
+    "connect-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
 });
 
 export async function startServer() {
@@ -25,7 +34,10 @@ export async function startServer() {
     }
     const [relativePath, contentType] = entry;
     const body = await readFile(fileURLToPath(new URL(relativePath, ROOT)));
-    response.writeHead(200, { ...SECURITY_HEADERS, "content-type": contentType });
+    const securityHeaders = request.url?.startsWith("/explorer")
+      ? EXPLORER_SECURITY_HEADERS
+      : SECURITY_HEADERS;
+    response.writeHead(200, { ...securityHeaders, "content-type": contentType });
     response.end(body);
   });
   await new Promise((resolve, reject) => {

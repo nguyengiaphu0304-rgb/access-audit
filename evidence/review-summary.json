@@ -1,0 +1,1 @@
+{"active_count":12,"as_of":"2026-07-29","report_sha256":"a57e903c1aff8d9fbc95ede9633787fb0a2bf6e12cc0c0a9b733de3e7e575f6d","schema":"access-audit/review-v1","suppressed":[{"finding_key":"AA005:7:img","owner":"accessibility-team","rationale":"pending_fix","suppression_id":"synthetic-image-review"}],"suppressed_count":1,"total_count":13}
