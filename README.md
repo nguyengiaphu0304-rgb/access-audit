@@ -9,7 +9,7 @@ It is not a WCAG conformance checker, certification tool, browser, or substitute
 for axe, keyboard testing, screen readers, zoom/reflow, contrast review, or
 testing with disabled people.
 
-## What v0.2 checks
+## What v1.0 checks
 
 - document language and non-empty title;
 - exactly one main landmark and an `h1`;
@@ -36,6 +36,11 @@ report-bound suppressions and a responsive semantic finding explorer.
 Suppressions never remove findings or hide new and severity-increased
 regressions.
 
+The source, tests, deterministic demo, wheel and canonical source archive are
+prepared as a `v1.0.0` release candidate. The project is not yet published:
+the required NVDA/Firefox and VoiceOver/Safari sessions remain explicitly
+unperformed. See the [publication checklist](docs/releases/v1.0.0-checklist.md).
+
 ## Quick start
 
 ```bash
@@ -45,6 +50,7 @@ python -m pip install -e .
 access-audit fixtures/failing.html --output demo-output/report.json
 python -m pytest
 python scripts/review_demo.py --output-directory demo-output/review
+python scripts/release_demo.py --output-directory demo-output/release
 npm ci
 npx playwright install chromium
 npm test
@@ -68,6 +74,7 @@ python scripts/demo.py --output demo-output/report.json
 python scripts/demo.py --output demo-output/report-second.json
 cmp demo-output/report.json demo-output/report-second.json
 python -m build
+python scripts/package_release.py --dist dist --output release
 python -m pip check
 python -m pip_audit --skip-editable
 npm audit --audit-level=high
@@ -84,8 +91,13 @@ npm audit --audit-level=high
 - [ADR-001](docs/adr/001-static-preflight-boundary.md)
 - [ADR-002](docs/adr/002-separate-browser-evidence.md)
 - [ADR-003](docs/adr/003-auditable-review-state.md)
+- [ADR-004](docs/adr/004-canonical-release-evidence.md)
 - [Roadmap](docs/roadmap.md)
 - [Interview guide](docs/interview-guide.md)
+- [v1.0.0 release notes](docs/releases/v1.0.0.md)
+- [v1.0.0 publication checklist](docs/releases/v1.0.0-checklist.md)
+- [Support matrix](docs/releases/support-matrix.md)
+- [Residual risks](docs/releases/residual-risks.md)
 
 ## Current limitations
 

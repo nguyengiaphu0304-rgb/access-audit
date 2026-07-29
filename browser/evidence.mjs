@@ -115,7 +115,7 @@ try {
 
   const evidence = {
     schema: "access-audit/browser-evidence/v1",
-    tool_version: "0.2.0",
+    tool_version: "1.0.0",
     provenance: {
       axe_core_version: packages.devDependencies["axe-core"],
       fixture_sha256: sha256(fixture),

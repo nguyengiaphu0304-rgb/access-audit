@@ -23,7 +23,7 @@
 ## v1.0: verified release
 
 - [ ] Manual NVDA/Firefox and VoiceOver/Safari sessions.
-- [ ] Reproducible demo and package artifacts.
-- [ ] Release notes, publication checklist, and residual-risk review.
+- [x] Reproducible demo and package artifacts.
+- [x] Release notes, publication checklist, and residual-risk review.
 
 The project will not call a site “compliant” based only on automated checks.

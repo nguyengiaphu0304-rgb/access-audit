@@ -44,3 +44,11 @@ A suppression records a temporary review decision, not a change in evidence.
 Computing regressions first ensures a new or severity-increased finding remains
 visible even when a team has accepted or deferred it. Report-hash binding and
 expiry prevent stale policy from silently following changed source.
+
+## Why canonicalize the source archive?
+
+Raw tar and gzip containers can carry build timestamps, owner fields and entry
+ordering that change without source changes. The release verifier validates the
+raw archive, then rebuilds a sorted archive with fixed metadata and rejects
+unsafe member types or paths. This makes checksum drift actionable without
+claiming cryptographic publisher identity.
