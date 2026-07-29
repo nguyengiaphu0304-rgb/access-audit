@@ -63,7 +63,7 @@ jobs:
           with zipfile.ZipFile(wheel) as archive:
               names = archive.namelist()
               assert len(names) == len(set(names)) <= 64
-              assert all(name.startswith(("access_audit/", "access_audit-0.1.0.dist-info/")) for name in names)
+              assert all(name.startswith(("access_audit/", "access_audit-0.2.0.dist-info/")) for name in names)
           with tarfile.open(sdist, "r:gz") as archive:
               members = archive.getmembers()
               assert len(members) <= 128
@@ -86,3 +86,34 @@ jobs:
         run: python -m pip check
       - name: Vulnerability audit
         run: python -m pip_audit --skip-editable
+
+  browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - name: Install locked browser toolchain
+        run: npm ci
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Node checks and Chromium evidence
+        run: npm test
+      - name: Deterministic browser evidence
+        run: |
+          cp evidence/browser-report.json /tmp/browser-report-first.json
+          cp evidence/combined-manifest.json /tmp/combined-manifest-first.json
+          npm run evidence
+          cmp /tmp/browser-report-first.json evidence/browser-report.json
+          cmp /tmp/combined-manifest-first.json evidence/combined-manifest.json
+      - name: Dependency audit
+        run: npm audit --audit-level=high
+      - uses: actions/upload-artifact@v4
+        with:
+          name: browser-evidence
+          path: |
+            evidence/browser-report.json
+            evidence/combined-manifest.json
+          retention-days: 14

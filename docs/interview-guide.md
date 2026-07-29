@@ -30,9 +30,10 @@ Each rule is only one static signal. For example, `alt` presence says nothing
 about quality, and a label association says nothing about spoken output. Calling
 these relationships keeps the educational context without overstating coverage.
 
-## What would change in a browser milestone?
+## Why is browser evidence a separate artifact?
 
-The static report remains immutable. A separate browser evidence schema would
-record browser/tool versions, rendered source lineage, axe results, keyboard and
-reflow checks, budgets, and limitations. Combining evidence must never reinterpret
-a v0.1 zero-finding report as conformance.
+The static report remains immutable. The browser schema records locked tool
+versions, source lineage, minimized axe results, keyboard, focus, reflow, motion,
+security outcomes and limitations. A digest-only manifest binds the two without
+pretending they have equivalent semantics. The no-network harness protects an
+original synthetic fixture; it is not a safe renderer for hostile pages.

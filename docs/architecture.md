@@ -1,6 +1,6 @@
 # Architecture
 
-Access Audit v0.1 has five explicit boundaries:
+Access Audit v0.2 has six explicit boundaries:
 
 1. `parser.py` decodes bounded UTF-8, rejects ambiguous markup, normalizes
    attribute values to NFC, and creates immutable elements with source locations.
@@ -15,6 +15,10 @@ Access Audit v0.1 has five explicit boundaries:
    trusting stored counts.
 5. `cli.py` maps findings and invalid input to documented exit codes and writes
    only an aggregate structured operational event to stderr.
+6. `browser/` is an optional development-only Chromium harness. It serves one
+   allowlisted synthetic fixture on loopback, blocks non-loopback requests, runs
+   minimized axe/focus/keyboard/reflow/motion checks, and binds its separate
+   artifact to the static report by SHA-256.
 
 The core has no runtime dependency, network client, browser, database, plugin
 loader, configuration file, telemetry backend, or hidden global mutable state.
@@ -35,5 +39,5 @@ bounded HTML bytes
  independent full replay
 ```
 
-This architecture makes static evidence reproducible. It intentionally cannot
-observe the rendered accessibility tree or user experience.
+Static and browser schemas remain separate. Browser evidence observes a narrow
+rendered fixture, not an arbitrary site, assistive technology or user experience.

@@ -18,6 +18,12 @@ All HTML bytes and previously generated report bytes are untrusted. HTML is
 never executed, rendered, fetched, written into logs, or inserted into generated
 markup.
 
+The optional browser harness is narrower: it renders only the repository's
+original synthetic fixture. An exact loopback path allowlist, restrictive CSP,
+and Playwright origin check block unexpected paths and external requests.
+Browser evidence excludes DOM snippets, selectors, page text, URLs, paths,
+machine metadata and raw errors.
+
 ## Resource limits
 
 - source: 1 MiB;
@@ -39,3 +45,7 @@ not tested.
 
 SHA-256 does not authenticate the source or publisher. Reports retain structural
 locations and tags, which can still reveal page shape.
+
+The browser policy is defense in depth, not a sandbox for hostile pages.
+Chromium or dependency compromise, browser extensions, kernel compromise,
+DNS rebinding and future browser behavior remain outside the threat model.

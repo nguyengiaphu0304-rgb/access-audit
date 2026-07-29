@@ -1,9 +1,9 @@
-.mypy_cache/
-.pytest_cache/
-.ruff_cache/
 .venv/
-build/
 dist/
+node_modules/
+demo-output/
 *.egg-info/
 __pycache__/
-demo-output/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/

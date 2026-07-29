@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Access Audit synthetic browser fixture</title>
+    <link rel="stylesheet" href="/fixture.css">
+  </head>
+  <body>
+    <header>
+      <a class="skip-link" href="#main">Skip to main content</a>
+      <span aria-hidden="true">Access Audit</span>
+    </header>
+    <main id="main">
+      <h1>Browser evidence workspace</h1>
+      <p>This original synthetic fixture contains no user or website data.</p>
+      <form>
+        <label for="query">Audit label</label>
+        <input id="query" data-evidence-token="input" autocomplete="off">
+        <button data-evidence-token="submit" type="submit">Run synthetic check</button>
+      </form>
+      <details>
+        <summary data-evidence-token="details">Evidence limitations</summary>
+        <p>Automated checks do not establish WCAG conformance.</p>
+      </details>
+      <a data-evidence-token="docs" href="#limitations">Read limitations</a>
+      <section id="limitations" tabindex="-1">
+        <h2>Limitations</h2>
+        <p>Manual assistive-technology and user testing remain required.</p>
+      </section>
+      <div class="motion-sample" aria-hidden="true"></div>
+    </main>
+    <script>
+      document.querySelector("form").addEventListener("submit", (event) => event.preventDefault());
+    </script>
+  </body>
+</html>
