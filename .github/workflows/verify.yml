@@ -51,33 +51,26 @@ jobs:
           cmp evidence/review-summary.json demo-output/review/review-summary.json
           cmp evidence/comparison.json demo-output/review/comparison.json
           cmp evidence/explorer.html demo-output/review/explorer.html
-      - name: Build and inspect package
+          python scripts/release_demo.py --output-directory demo-output/release
+          diff -ru evidence/release demo-output/release
+          python scripts/release_demo.py --output-directory demo-output/release-second
+          diff -ru demo-output/release demo-output/release-second
+      - name: Reproducible verified packages
+        env:
+          SOURCE_DATE_EPOCH: "315532800"
         run: |
-          python -m build
-          python - <<'PY'
-          import pathlib
-          import tarfile
-          import zipfile
-
-          dist = pathlib.Path("dist")
-          wheel, = dist.glob("*.whl")
-          sdist, = dist.glob("*.tar.gz")
-          assert wheel.stat().st_size < 1_048_576
-          assert sdist.stat().st_size < 1_048_576
-          with zipfile.ZipFile(wheel) as archive:
-              names = archive.namelist()
-              assert len(names) == len(set(names)) <= 64
-              assert all(name.startswith(("access_audit/", "access_audit-0.3.0.dist-info/")) for name in names)
-          with tarfile.open(sdist, "r:gz") as archive:
-              members = archive.getmembers()
-              assert len(members) <= 128
-              assert len({member.name for member in members}) == len(members)
-              assert all(member.isfile() or member.isdir() for member in members)
-          PY
+          python -m build --outdir /tmp/raw-one
+          python -m build --outdir /tmp/raw-two
+          python scripts/package_release.py --dist /tmp/raw-one --output /tmp/release-one
+          python scripts/package_release.py --dist /tmp/raw-two --output /tmp/release-two
+          diff -ru /tmp/release-one /tmp/release-two
+          cd /tmp/release-one
+          sha256sum -c SHA256SUMS
       - name: Isolated wheel smoke
         run: |
           python -m venv /tmp/access-audit-wheel
-          /tmp/access-audit-wheel/bin/python -m pip install --no-index --no-deps dist/*.whl
+          /tmp/access-audit-wheel/bin/python -m pip install \
+            --no-index --no-deps /tmp/release-one/*.whl
           set +e
           /tmp/access-audit-wheel/bin/access-audit \
             fixtures/failing.html \
@@ -86,10 +79,35 @@ jobs:
           set -e
           test "$status" -eq 1
           cmp evidence/failing-report.json /tmp/access-audit-report.json
+          /tmp/access-audit-wheel/bin/python - <<'PY'
+          from access_audit import __version__, create_report, verify_report
+          source = (
+              b"<!doctype html><html lang='en'><head><title>x</title></head>"
+              b"<body><main><h1>x</h1></main></body></html>"
+          )
+          report = create_report(source)
+          verify_report(source, report)
+          assert __version__ == "1.0.0"
+          PY
       - name: Dependency consistency
         run: python -m pip check
       - name: Vulnerability audit
         run: python -m pip_audit --skip-editable
+      - name: Repository hygiene
+        run: |
+          git diff --check
+          test -z "$(git ls-files | grep -E '(^|/)(node_modules|dist|release|\.venv)/')"
+          ! git grep -IEn \
+            'BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY|AKIA[0-9A-Z]{16}'
+      - uses: actions/upload-artifact@v4
+        if: matrix.python-version == '3.12'
+        with:
+          name: access-audit-v1.0.0
+          path: |
+            /tmp/release-one/access_audit-1.0.0-py3-none-any.whl
+            /tmp/release-one/access_audit-1.0.0.tar.gz
+            /tmp/release-one/SHA256SUMS
+          retention-days: 14
 
   browser:
     runs-on: ubuntu-latest

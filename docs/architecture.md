@@ -1,6 +1,6 @@
 # Architecture
 
-Access Audit v0.3 has seven explicit boundaries:
+Access Audit v1.0 has eight explicit boundaries:
 
 1. `parser.py` decodes bounded UTF-8, rejects ambiguous markup, normalizes
    attribute values to NFC, and creates immutable elements with source locations.
@@ -21,6 +21,9 @@ Access Audit v0.3 has seven explicit boundaries:
    artifact to the static report by SHA-256.
 7. `review.py` validates expiring source-bound suppressions, compares immutable
    reports before suppression state, and generates a minimized static explorer.
+8. `release_demo.py` and `package_release.py` create deterministic offline
+   evidence and canonical release archives. They do not publish, sign, or
+   convert unperformed manual checks into passing evidence.
 
 The core has no runtime dependency, network client, browser, database, plugin
 loader, configuration file, telemetry backend, or hidden global mutable state.

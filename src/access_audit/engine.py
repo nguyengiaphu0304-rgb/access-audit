@@ -13,7 +13,7 @@ from access_audit.parser import parse_html
 from access_audit.rules import RULE_BY_ID, RULES
 
 SCHEMA_VERSION: Final = "access-audit/report-v1"
-TOOL_VERSION: Final = "0.1.0"
+TOOL_VERSION: Final = "1.0.0"
 MAX_FINDINGS: Final = 10_000
 ARIA_IDREF_ATTRIBUTES: Final = (
     "aria-activedescendant",
