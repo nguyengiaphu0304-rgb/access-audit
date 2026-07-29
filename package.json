@@ -1,0 +1,17 @@
+{
+  "name": "access-audit-browser-evidence",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "engines": {"node": ">=22"},
+  "scripts": {
+    "check": "node --check browser/*.mjs && node --test browser/unit.test.mjs",
+    "evidence": "node browser/evidence.mjs --output evidence/browser-report.json --manifest evidence/combined-manifest.json",
+    "verify:evidence": "node browser/verify.mjs evidence/browser-report.json evidence/combined-manifest.json",
+    "test": "npm run check && npm run evidence && npm run verify:evidence"
+  },
+  "devDependencies": {
+    "axe-core": "4.12.1",
+    "playwright": "1.62.0"
+  }
+}

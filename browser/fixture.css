@@ -1,0 +1,20 @@
+:root { color-scheme: light dark; font-family: system-ui, sans-serif; line-height: 1.5; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+header, main { margin-inline: auto; max-width: 48rem; padding: 1rem; }
+form { display: grid; gap: 0.75rem; max-width: 28rem; }
+input, button, summary, a { border-radius: 0.25rem; font: inherit; min-height: 2.75rem; }
+:focus-visible { outline: 3px solid #ffbf47; outline-offset: 3px; }
+.skip-link { left: 1rem; position: absolute; top: -8rem; }
+.skip-link:focus { top: 1rem; }
+.motion-sample { animation: pulse 2s infinite; height: 1rem; width: 1rem; }
+@keyframes pulse { 50% { opacity: 0.5; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+@media (max-width: 24rem) { header, main { padding: 0.75rem; } }

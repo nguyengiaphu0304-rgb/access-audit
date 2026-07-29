@@ -9,10 +9,10 @@
 
 ## v0.2: browser evidence
 
-- [ ] Render a local fixture in Chromium under a no-network policy.
-- [ ] Integrate axe-core results without claiming exhaustive WCAG coverage.
-- [ ] Verify focus visibility, keyboard traversal, reflow, and reduced motion.
-- [ ] Preserve static/browser provenance in a combined evidence artifact.
+- [x] Render a local fixture in Chromium under a no-network policy.
+- [x] Integrate axe-core results without claiming exhaustive WCAG coverage.
+- [x] Verify focus visibility, keyboard traversal, reflow, and reduced motion.
+- [x] Preserve static/browser provenance in a combined evidence artifact.
 
 ## v0.3: review workflow
 
