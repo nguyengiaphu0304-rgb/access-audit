@@ -17,6 +17,12 @@ export const SECURITY_HEADERS = Object.freeze({
   "referrer-policy": "no-referrer",
   "x-content-type-options": "nosniff",
 });
+export const EXPLORER_SECURITY_HEADERS = Object.freeze({
+  ...SECURITY_HEADERS,
+  "content-security-policy":
+    "default-src 'none'; style-src 'self'; script-src 'self'; img-src 'self'; " +
+    "connect-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
+});
 
 export async function startServer() {
   const server = createServer(async (request, response) => {
@@ -28,7 +34,10 @@ export async function startServer() {
     }
     const [relativePath, contentType] = entry;
     const body = await readFile(fileURLToPath(new URL(relativePath, ROOT)));
-    response.writeHead(200, { ...SECURITY_HEADERS, "content-type": contentType });
+    const securityHeaders = request.url?.startsWith("/explorer")
+      ? EXPLORER_SECURITY_HEADERS
+      : SECURITY_HEADERS;
+    response.writeHead(200, { ...securityHeaders, "content-type": contentType });
     response.end(body);
   });
   await new Promise((resolve, reject) => {
