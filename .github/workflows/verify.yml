@@ -96,7 +96,7 @@ jobs:
       - name: Repository hygiene
         run: |
           git diff --check
-          test -z "$(git ls-files | grep -E '(^|/)(node_modules|dist|release|\.venv)/')"
+          test -z "$(git ls-files | grep -E '^(node_modules|dist|release|\.venv)/')"
           ! git grep -IEn \
             'BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY|AKIA[0-9A-Z]{16}'
       - uses: actions/upload-artifact@v4
