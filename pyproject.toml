@@ -1,0 +1,53 @@
+[build-system]
+requires = ["hatchling==1.28.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "access-audit"
+version = "0.1.0"
+description = "Deterministic local-first static HTML accessibility preflight"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [{ name = "Nguyen Gia Phu" }]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Typing :: Typed",
+]
+dependencies = []
+
+[project.scripts]
+access-audit = "access_audit.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/access_audit"]
+
+[tool.pytest.ini_options]
+addopts = "--strict-config --strict-markers -q"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = ["COM812", "D203", "D213"]
+
+[tool.ruff.lint.per-file-ignores]
+"scripts/**" = ["D100", "D103"]
+"src/access_audit/cli.py" = ["D103", "EM101", "TRY003"]
+"src/access_audit/engine.py" = ["C901", "D103", "EM101", "EM102", "PLR2004", "TRY003"]
+"src/access_audit/parser.py" = ["D100", "D101", "D102", "EM101", "EM102", "PLR2004", "TRY003"]
+"tests/**" = ["D100", "D103", "PLR2004", "S101"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_unreachable = true
+packages = ["access_audit"]
+mypy_path = "src"
