@@ -1,0 +1,15 @@
+{
+  "as_of": "2026-07-29",
+  "entries": [
+    {
+      "created_on": "2026-07-29",
+      "expires_on": "2026-08-28",
+      "finding_key": "AA005:7:img",
+      "owner": "accessibility-team",
+      "rationale": "pending_fix",
+      "suppression_id": "synthetic-image-review"
+    }
+  ],
+  "report_sha256": "a57e903c1aff8d9fbc95ede9633787fb0a2bf6e12cc0c0a9b733de3e7e575f6d",
+  "schema": "access-audit/suppressions-v1"
+}

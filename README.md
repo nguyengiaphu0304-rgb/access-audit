@@ -31,6 +31,11 @@ reduced motion and network isolation on an original synthetic fixture. A
 digest-only manifest binds browser and static artifacts without treating either
 as WCAG conformance.
 
+The v0.3 review workflow adds immutable baseline comparison, expiring
+report-bound suppressions and a responsive semantic finding explorer.
+Suppressions never remove findings or hide new and severity-increased
+regressions.
+
 ## Quick start
 
 ```bash
@@ -39,6 +44,7 @@ python -m venv .venv
 python -m pip install -e .
 access-audit fixtures/failing.html --output demo-output/report.json
 python -m pytest
+python scripts/review_demo.py --output-directory demo-output/review
 npm ci
 npx playwright install chromium
 npm test
@@ -73,9 +79,11 @@ npm audit --audit-level=high
 - [Rule contract](docs/rule-contract.md)
 - [Evidence and privacy contract](docs/evidence-contract.md)
 - [Browser evidence contract](docs/browser-evidence-contract.md)
+- [Review workflow contract](docs/review-contract.md)
 - [Threat model](docs/threat-model.md)
 - [ADR-001](docs/adr/001-static-preflight-boundary.md)
 - [ADR-002](docs/adr/002-separate-browser-evidence.md)
+- [ADR-003](docs/adr/003-auditable-review-state.md)
 - [Roadmap](docs/roadmap.md)
 - [Interview guide](docs/interview-guide.md)
 

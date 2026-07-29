@@ -16,9 +16,9 @@
 
 ## v0.3: review workflow
 
-- [ ] Accessible responsive finding explorer with semantic table/list fallback.
-- [ ] Suppression files with owner, rationale, expiry, and source-hash binding.
-- [ ] Baseline comparison that never hides new or severity-increased findings.
+- [x] Accessible responsive finding explorer with semantic table/list fallback.
+- [x] Suppression files with owner, rationale, expiry, and source-hash binding.
+- [x] Baseline comparison that never hides new or severity-increased findings.
 
 ## v1.0: verified release
 

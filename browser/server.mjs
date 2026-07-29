@@ -6,6 +6,9 @@ const ROOT = new URL("./", import.meta.url);
 const FILES = new Map([
   ["/", ["fixture.html", "text/html; charset=utf-8"]],
   ["/fixture.css", ["fixture.css", "text/css; charset=utf-8"]],
+  ["/explorer", ["../evidence/explorer.html", "text/html; charset=utf-8"]],
+  ["/explorer.css", ["explorer.css", "text/css; charset=utf-8"]],
+  ["/explorer.js", ["explorer.js", "text/javascript; charset=utf-8"]],
 ]);
 export const SECURITY_HEADERS = Object.freeze({
   "content-security-policy":

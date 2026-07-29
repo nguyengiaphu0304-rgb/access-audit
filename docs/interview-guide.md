@@ -37,3 +37,10 @@ versions, source lineage, minimized axe results, keyboard, focus, reflow, motion
 security outcomes and limitations. A digest-only manifest binds the two without
 pretending they have equivalent semantics. The no-network harness protects an
 original synthetic fixture; it is not a safe renderer for hostile pages.
+
+## Why can suppressions not change baseline results?
+
+A suppression records a temporary review decision, not a change in evidence.
+Computing regressions first ensures a new or severity-increased finding remains
+visible even when a team has accepted or deferred it. Report-hash binding and
+expiry prevent stale policy from silently following changed source.

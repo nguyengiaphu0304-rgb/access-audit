@@ -13,6 +13,9 @@ test("server allows only known GET paths", async () => {
   try {
     assert.equal((await fetch(server.origin)).status, 200);
     assert.equal((await fetch(`${server.origin}/fixture.css`)).status, 200);
+    assert.equal((await fetch(`${server.origin}/explorer`)).status, 200);
+    assert.equal((await fetch(`${server.origin}/explorer.css`)).status, 200);
+    assert.equal((await fetch(`${server.origin}/explorer.js`)).status, 200);
     assert.equal((await fetch(`${server.origin}/../package.json`)).status, 404);
     assert.equal((await fetch(`${server.origin}/unknown`)).status, 404);
     assert.equal((await fetch(server.origin, { method: "POST" })).status, 404);

@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy"
+ content="default-src 'none'; style-src 'self'; script-src 'self'">
+<title>Access Audit finding explorer</title><link rel="stylesheet" href="/explorer.css"></head>
+<body><a class="skip" href="#findings">Skip to findings</a><main>
+<h1>Finding explorer</h1><p>Automated findings are review signals, not WCAG conformance.</p>
+<fieldset><legend>Filter by severity</legend>
+<button type="button" data-filter="all" aria-pressed="true">All</button>
+<button type="button" data-filter="error" aria-pressed="false">Errors</button>
+<button type="button" data-filter="warning" aria-pressed="false">Warnings</button>
+</fieldset><p id="result-count" role="status" aria-live="polite">13 findings shown</p>
+<div class="table-wrap"><table id="findings"><caption>Privacy-minimized static findings</caption>
+<thead><tr><th scope="col">Rule</th><th scope="col">Severity</th><th scope="col">Element</th>
+<th scope="col">Index</th><th scope="col">Source location</th></tr></thead><tbody><tr data-severity='error'><th scope='row'>AA001</th><td>error</td><td>html</td><td>0</td><td>2:0</td></tr><tr data-severity='error'><th scope='row'>AA002</th><td>error</td><td>html</td><td>0</td><td>2:0</td></tr><tr data-severity='error'><th scope='row'>AA003</th><td>error</td><td>html</td><td>0</td><td>2:0</td></tr><tr data-severity='warning'><th scope='row'>AA004</th><td>warning</td><td>h3</td><td>6</td><td>7:6</td></tr><tr data-severity='error'><th scope='row'>AA005</th><td>error</td><td>img</td><td>7</td><td>8:6</td></tr><tr data-severity='error'><th scope='row'>AA006</th><td>error</td><td>input</td><td>9</td><td>9:26</td></tr><tr data-severity='error'><th scope='row'>AA007</th><td>error</td><td>button</td><td>10</td><td>10:6</td></tr><tr data-severity='error'><th scope='row'>AA008</th><td>error</td><td>a</td><td>11</td><td>11:6</td></tr><tr data-severity='error'><th scope='row'>AA009</th><td>error</td><td>input</td><td>9</td><td>9:26</td></tr><tr data-severity='error'><th scope='row'>AA009</th><td>error</td><td>div</td><td>12</td><td>12:6</td></tr><tr data-severity='error'><th scope='row'>AA010</th><td>error</td><td>div</td><td>13</td><td>13:6</td></tr><tr data-severity='warning'><th scope='row'>AA011</th><td>warning</td><td>div</td><td>14</td><td>14:6</td></tr><tr data-severity='warning'><th scope='row'>AA012</th><td>warning</td><td>table</td><td>15</td><td>15:6</td></tr></tbody>
+</table></div><p id="empty" hidden>No findings match this filter.</p>
+</main><script src="/explorer.js"></script></body></html>

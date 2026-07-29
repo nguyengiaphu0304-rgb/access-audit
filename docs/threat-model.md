@@ -49,3 +49,8 @@ locations and tags, which can still reveal page shape.
 The browser policy is defense in depth, not a sandbox for hostile pages.
 Chromium or dependency compromise, browser extensions, kernel compromise,
 DNS rebinding and future browser behavior remain outside the threat model.
+
+Suppression files are untrusted and fail closed on unknown fields, invalid dates,
+duplicate identities, missing targets, excess duration, expiry or report-hash
+drift. They cannot mutate reports or affect regression classification. Owner IDs
+are accountability labels, not authenticated identities.

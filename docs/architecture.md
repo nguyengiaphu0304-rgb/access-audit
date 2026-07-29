@@ -1,6 +1,6 @@
 # Architecture
 
-Access Audit v0.2 has six explicit boundaries:
+Access Audit v0.3 has seven explicit boundaries:
 
 1. `parser.py` decodes bounded UTF-8, rejects ambiguous markup, normalizes
    attribute values to NFC, and creates immutable elements with source locations.
@@ -19,6 +19,8 @@ Access Audit v0.2 has six explicit boundaries:
    allowlisted synthetic fixture on loopback, blocks non-loopback requests, runs
    minimized axe/focus/keyboard/reflow/motion checks, and binds its separate
    artifact to the static report by SHA-256.
+7. `review.py` validates expiring source-bound suppressions, compares immutable
+   reports before suppression state, and generates a minimized static explorer.
 
 The core has no runtime dependency, network client, browser, database, plugin
 loader, configuration file, telemetry backend, or hidden global mutable state.

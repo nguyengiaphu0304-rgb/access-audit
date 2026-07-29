@@ -96,6 +96,23 @@ try {
   });
   assert.equal(externalSucceeded, false);
 
+  const explorerResponse = await page.goto(`${server.origin}/explorer`, {
+    waitUntil: "domcontentloaded",
+  });
+  assert(explorerResponse?.ok());
+  await page.evaluate(axe.source);
+  const explorerAxe = await page.evaluate(async () => globalThis.axe.run(document));
+  const explorerSerious = explorerAxe.violations.filter(item =>
+    ["critical", "serious"].includes(item.impact));
+  assert.equal(explorerSerious.length, 0);
+  await page.locator('[data-filter="error"]').click();
+  assert.equal(await page.locator("#result-count").textContent(), "10 findings shown");
+  assert.equal(await page.locator("tbody tr:not([hidden])").count(), 10);
+  const explorerReflow = await page.evaluate(
+    () => document.documentElement.scrollWidth <= document.documentElement.clientWidth,
+  );
+  assert(explorerReflow);
+
   const evidence = {
     schema: "access-audit/browser-evidence/v1",
     tool_version: "0.2.0",
@@ -109,6 +126,11 @@ try {
     },
     checks: {
       axe: { violations },
+      explorer: {
+        error_filter_count: 10,
+        horizontal_overflow: false,
+        serious_or_critical_violations: 0,
+      },
       focus: { indicator_visible: true, minimum_outline_px: focus.outline_width_px },
       keyboard: { sequence: keyboard },
       network: { external_requests_blocked: blockedRequests, external_request_succeeded: false },

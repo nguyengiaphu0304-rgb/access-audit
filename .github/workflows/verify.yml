@@ -47,6 +47,10 @@ jobs:
           cmp evidence/failing-report.json demo-output/report.json
           python scripts/demo.py --output demo-output/report-second.json
           cmp demo-output/report.json demo-output/report-second.json
+          python scripts/review_demo.py --output-directory demo-output/review
+          cmp evidence/review-summary.json demo-output/review/review-summary.json
+          cmp evidence/comparison.json demo-output/review/comparison.json
+          cmp evidence/explorer.html demo-output/review/explorer.html
       - name: Build and inspect package
         run: |
           python -m build
@@ -63,7 +67,7 @@ jobs:
           with zipfile.ZipFile(wheel) as archive:
               names = archive.namelist()
               assert len(names) == len(set(names)) <= 64
-              assert all(name.startswith(("access_audit/", "access_audit-0.2.0.dist-info/")) for name in names)
+              assert all(name.startswith(("access_audit/", "access_audit-0.3.0.dist-info/")) for name in names)
           with tarfile.open(sdist, "r:gz") as archive:
               members = archive.getmembers()
               assert len(members) <= 128

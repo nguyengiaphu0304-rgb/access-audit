@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "access-audit"
-version = "0.2.0"
+version = "0.3.0"
 description = "Deterministic local-first accessibility preflight evidence"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -43,6 +43,7 @@ ignore = ["COM812", "D203", "D213"]
 "src/access_audit/cli.py" = ["D103", "EM101", "TRY003"]
 "src/access_audit/engine.py" = ["C901", "D103", "EM101", "EM102", "PLR2004", "TRY003"]
 "src/access_audit/parser.py" = ["D100", "D101", "D102", "EM101", "EM102", "PLR2004", "TRY003"]
+"src/access_audit/review.py" = ["ANN401", "C901", "EM101", "PLR2004", "TRY003"]
 "tests/**" = ["D100", "D103", "PLR2004", "S101"]
 
 [tool.mypy]
